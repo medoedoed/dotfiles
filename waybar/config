@@ -1,0 +1,165 @@
+{
+    "layer": "top", // Waybar at top layer
+    "position": "top", 
+	"margin": "0 0 0 0",
+     "modules-left": ["sway/workspaces", "custom/mail", "tray", "prev", "custom/prev","custom/toggle", "custom/next", "custom/title"],
+    "modules-center": ["clock","custom/weather"],
+    "modules-right": ["sway/language","network", "pulseaudio", "custom/mem", "backlight", "battery"],
+
+
+    //***************************
+    //*  Modules configuration  *
+    //***************************
+
+    "sway/workspaces": {
+        "disable-scroll": true,
+        "persistent_workspaces": {
+            "1": [1],
+            "2": []}
+    },
+
+	"custom/prev": {
+        "format": "⏮️",
+        "exec": "echo 'Prev'",
+        "on-click": "playerctl previous",
+        "tooltip": false
+    },
+    "custom/next": {
+        "format": "⏭️",
+        "exec": "echo 'Next'",
+        "on-click": "playerctl next",
+        "tooltip": false
+    },
+
+ "custom/toggle": {
+        "format": "{}",
+        "exec": "playerctl status | grep -q 'Playing' && echo '⏸️' || echo '▶️'",
+        "on-click": "playerctl play-pause",
+        "interval": 1,
+        "tooltip": false,
+		"min-length": 3
+    },
+
+	"custom/title": {
+        "format": "{}",
+        "exec": "playerctl metadata --format '{{ title }}'",
+        "interval": 1,
+		"max-length": 24
+    },
+
+
+    "sway/language": {
+    "format": "{} ",
+	"min-length": 5,
+	"tooltip": false
+    },
+
+	"network": {
+    	"interface": "wlp0s20f3",
+    	"format": "{ifname}",
+    	"format-wifi": "  {signalStrength}%",
+    "format-ethernet": "󰊗",
+    //"format-disconnected": "", //An empty format will hide the module.
+    "tooltip-format": "{ifname} via {gwaddr} 󰊗",
+    "tooltip-format-wifi": "{essid} ({signalStrength}%) ",
+    "tooltip-format-ethernet": "{ifname} ",
+    "tooltip-format-disconnected": "Disconnected",
+	"on-click": "alacritty -e 'nmtui'",
+	"min-length": 9
+},
+
+    "clock": {
+        // "timezone": "America/New_York",
+		"interval": 1,
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "format": "{:%a, %d %b, %H:%M:%S}",
+		"min-length": 5,
+		"click-action": "waybar-cal",
+
+    },
+
+    "custom/weather": {
+	"format": "{}",
+	"interval": 10,
+
+	"exec": "~/.config/scripts/weather.sh",
+	"tooltip": true
+	},
+
+
+    "pulseaudio": {
+        "scroll-step": 3, // %, can be a float
+        "reverse-scrolling": 1,
+        "format": "{icon} {volume}%",
+        "format-bluetooth": "{volume}% {icon} {format_source}",
+        "format-bluetooth-muted": " {icon} {format_source}",
+        "format-muted": "婢 0%",
+        "format-source": "{volume}% ",
+        "format-source-muted": "",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["奄", "奔", "墳"]
+        },
+        "on-click": "pavucontrol",
+        "min-length": 2,
+    },
+
+    "custom/mem": {
+        "format": "{}",
+        "interval": 3,
+        "exec": "free -h | awk '/Mem:/{printf $3}'",
+        "tooltip": false,
+    },
+
+  	"sn/prev": {
+		"format": "{}",
+		"on-click": "playerctl previous",
+	
+
+  	},
+
+   "backlight": {
+		"scroll-step": 10, // %, can be a float
+        "reverse-scrolling": 1,
+
+        // "device": "acpi_video1",
+        "format": "{icon} {percent}%",
+        "format-icons": ["", "", "", "", "", "", "", "", ""]
+    },
+
+    "battery": {
+        "states": {
+            // "good": 95,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon}  {capacity}%",
+        "format-full": "{icon}  {capacity}%",
+        "format-charging": " {capacity}%",
+        "format-plugged": "  {capacity}%" ,
+        "format-alt": "{time} {icon} ",
+        // "format-good": "", // An empty format will hide the module
+        // "format-full": "",
+        "format-icons": ["", "", "", "", ""]
+    },
+
+    "tray": {
+        "icon-size": 16,
+        "spacing": 0
+    },
+
+	"custom/playerctl-controls": {
+        "format": "Prev {} Next",
+        "return-type": "json",
+        "exec": "echo '{}'",
+        "exec-if": "command -v playerctl",
+        "on-click": "bash -c 'if [[ {0} == \"Next\" ]]; then 'playerctl next'; elif [[ {0} == \"Prev\" ]]; then playerctl previous; fi'"
+    }
+}
