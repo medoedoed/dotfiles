@@ -1,9 +1,9 @@
 #МОЙ КОНФИГ
 #
 # ширина
-width=300
+width=400
 # высота
-height=400
+height=600
 
 # скрыть подменю
 no_actions=true
@@ -34,9 +34,9 @@ insensitive=false
 
 #ВНЕШНИЙ ВИД
 
-xoffset=760
+# xoffset=960
 #x=OFFSET то же самое что и xoffset
-yoffset=400
+# yoffset=500
 #y=OFFSET то же самое что и yoffset
 #lines=8 Задает высоту в количестве строк вместо пикселей
 #hide_search=false скрывать панель поиска

@@ -57,7 +57,7 @@ set $font "Fira Mono Regular 14"
 	# ТЕНИ
 	shadows on
 	shadows_on_csd off
-	shadow_blur_radius 5
+	shadow_blur_radius 10
 	shadow_color #7c6f64
 
 	# Затемнение неактивных окон
@@ -129,7 +129,7 @@ exec_always killall mako
 #exec wireplumber
 #exec pipewire-pulse
 
-
+exec NetworkManager --no-startup-id
 exec firefox-wayland
 assign [app_id="firefox-wayland"] workspace 1
 assign [app_id=$browser] workspace 1

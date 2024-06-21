@@ -1,10 +1,10 @@
 {
     "layer": "top", // Waybar at top layer
     "position": "top", 
-	"margin": "0 0 0 0",
+	"margin": "0 0 0 12",
      "modules-left": ["sway/workspaces", "custom/mail", "tray", "prev", "custom/prev","custom/toggle", "custom/next", "custom/title"],
     "modules-center": ["clock","custom/weather"],
-    "modules-right": ["sway/language","network", "pulseaudio", "custom/mem", "backlight", "battery"],
+    "modules-right": ["sway/language","network#vpn", "network#wifi", "network#ethernet", "network#disconnected", "pulseaudio", "custom/mem", "backlight", "battery"],
 
 
     //***************************
@@ -54,19 +54,44 @@
 	"tooltip": false
     },
 
-	"network": {
-    	"interface": "wlp0s20f3",
-    	"format": "{ifname}",
-    	"format-wifi": "  {signalStrength}%",
-    "format-ethernet": "󰊗",
-    //"format-disconnected": "", //An empty format will hide the module.
-    "tooltip-format": "{ifname} via {gwaddr} 󰊗",
-    "tooltip-format-wifi": "{essid} ({signalStrength}%) ",
-    "tooltip-format-ethernet": "{ifname} ",
-    "tooltip-format-disconnected": "Disconnected",
-	"on-click": "alacritty -e 'nmtui'",
-	"min-length": 9
-},
+
+
+ "network#disconnected": {
+            "tooltip-format": "No connection!",
+            "format-ethernet": "",
+            "format-wifi": "",
+            "format-linked": " ",
+            "format-disconnected": "  ",
+            "on-click": "nm-connection-editor",
+			"min-length": 4
+
+        },
+        "network#ethernet": {
+            "interface": "enp*",
+            "format-ethernet": "",
+            "format-wifi": "",
+            "format-linked": "",
+            "format-disconnected": "",
+            "tooltip-format": "{ifname}: {ipaddr}/{cidr}",
+            "on-click": "nm-connection-editor"
+        },
+        "network#wifi": {
+            "interface": "wlp*",
+            "format-ethernet": "",
+            "format-wifi": "  {signalStrength}%",
+            "format-linked": "",
+            "format-disconnected": "",
+            "tooltip-format": "{ifname}: {ipaddr}/{cidr}",
+            "on-click": "nm-connection-editor",
+			"min-length": 0
+        },
+        "network#vpn": {
+            "interface": "tun0",
+            "format": "",
+            "format-disconnected": "",
+            "tooltip-format": "{ifname}: {ipaddr}/{cidr}",
+            "on-click": "nm-connection-editor"
+        },
 
     "clock": {
         // "timezone": "America/New_York",
