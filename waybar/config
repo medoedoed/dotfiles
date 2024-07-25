@@ -7,7 +7,7 @@
     "modules-right": ["sway/language", "network#vpn", "network#wifi", "network#ethernet", "pulseaudio", "custom/mem", "backlight", "battery"],
 	
     "sway/workspaces": {
-	"disable-scroll": true,
+	"disable-scroll": false,
 	"all-outputs": true,
 	"format": "{icon}",
 	"format-icons": {
