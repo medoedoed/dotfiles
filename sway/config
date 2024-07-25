@@ -1,0 +1,433 @@
+#  ██████╗ ██╗       ██╗ █████╗ ██╗   ██╗
+# ██╔════╝ ██║  ██╗  ██║██╔══██╗╚██╗ ██╔╝
+# ╚█████╗  ╚██╗████╗██╔╝███████║ ╚████╔╝
+#  ╚═══██╗  ████╔═████║ ██╔══██║  ╚██╔╝
+# ██████╔╝  ╚██╔╝ ╚██╔╝ ██║  ██║   ██║
+# ╚═════╝    ╚═╝   ╚═╝  ╚═╝  ╚═╝   ╚═╝
+
+
+
+
+
+# includes
+
+
+# --- VARIABLES ---
+
+# --- MODE KEY ---
+
+set $mod Mod4
+
+# --- DIRECTION KEYS ---
+
+set {
+	$left h
+	$down j
+	$up k
+	$right l
+}
+
+# --- PROGRAMS ---
+
+set {
+	$term foot
+	$browser firefox
+	$menu wofi --show drun
+}
+
+# --- FONT ---
+
+set $font "Fira Mono Regular 14"
+
+# --- GUI ---
+
+#--- ЭТО РАБОТАЕТ ТОЛЬКО В SWAYFX -----------------------------------------------------
+	corner_radius 1
+	smart_corner_radius enable
+
+	# Блюр
+	blur enable
+	blur_xray off
+	blur_passes 3
+	blur_radius 3
+
+	# ТЕНИ
+	shadows on
+	shadows_on_csd off
+	shadow_blur_radius 10
+	shadow_color #7c6f64
+
+	# Затемнение неактивных окон
+	default_dim_inactive 0.01
+	dim_inactive_colors.unfocused #000000FF
+	dim_inactive_colors.urgent #900000FF
+
+
+
+# --- WS NAMES ---
+
+set 
+{
+	$ws1 1
+	$ws2 2
+	$ws3 3
+	$ws4 4
+	$ws5 5
+	$ws6 6
+	$ws7 7
+	$ws8 8
+	$ws9 9
+	$ws10 10
+}
+
+############ INPUTS ############
+
+# --- WALLPAPER --- 
+
+#output * bg ~/Downloads/vg.jpg fill
+
+# --- LAYOUT ---
+
+input * {
+    xkb_layout "us,ru"
+    # xkb_variant nodeadkeys # idk what does it do
+    xkb_options "grp:alt_shift_toggle"
+}
+
+input "type:pointer" {
+    tap enabled
+    natural_scroll disabled
+    dwt enabled
+    accel_profile "flat" 
+	pointer_accel 0.05
+}
+
+input "type:keyboard" {
+    xkb_layout "us,ru"
+    xkb_model pc105
+    xkb_options "grp:alt_shift_toggle"
+}
+
+# --- TOUCHPAD ---
+
+input "type:touchpad" {
+	tap enabled
+	scroll_factor 0.32
+	natural_scroll enabled
+	middle_emulation enabled
+	drag enabled
+}
+
+
+################################
+
+
+# --- AUTOSTART ---
+
+exec_always autotiling 
+# exec --no-startup-id telegram-desktop -autostart
+exec --no-startup-id xset b off
+exec dbus-daemon --session --address=unix:path=$XDG_RUNTIME_DIR/bus
+exec_always killall mako
+#exec wireplumber
+#exec pipewire-pulse
+
+exec NetworkManager
+exec firefox
+
+assign [app_id="Firefox"] workspace 1
+assign [app_id=$browser] workspace 1
+assign [class="jetbrains-idea"] workspace 3
+
+exec telegram-desktop
+assign [app_id="org.telegram.desktop"] workspace 9
+
+
+for_window [floating] resize set width 12 px height 3 pc
+
+for_window [app_id="org.telegram.desktop"] floating enable
+for_window [app_id="foot"] floating disable 
+for_window [app_id="foot-floating"] floating enable 
+for_window [app_id="foot"] resize set 900 650
+
+for_window [app_id="foot-tiling"] floating disable
+assign [app_id="foot-tiling"] workspace 2
+
+
+exec $term /usr/bin/zsh -c "fortune | cowsay; exec /usr/bin/zsh" --app-id "foot-1"
+exec $term /usr/bin/zsh -c "cava; exec /usr/bin/zsh" --app-id "foot-2"
+
+exec $term /usr/bin/zsh -c "neofetch; exec /usr/bin/zsh" --app-id "foot-3"
+
+
+
+assign [app_id="foot-1"] workspace 2
+for_window [app_id="foot-1"] floating disable
+
+assign [app_id="foot-2"] workspace 2
+for_window [app_id="foot-2"] floating disable
+
+assign [app_id="foot-3"] workspace 2
+for_window [app_id="foot-3"] floating disable
+
+assign [app_id="foot-fortune"] workspace 2
+for_window [app_id="foot-fortune"] floating disable
+
+
+exec swaymsg workspace 1
+# Распределение окон в режиме плитки
+
+
+#### TODO настроить mako
+
+#exec_always killall hybridbarur comma
+exec_always --no-startup-id mako
+exec nm-applet --indicator
+
+# --- BAR ---
+
+bar {
+    swaybar_command waybar 
+	font pango:JetBrainsMono, FontAwesome 12
+	
+	colors {
+		background #000000
+	}
+}
+
+# --- IDLE ---
+
+set $lock_bg ~/.config/swaylock/screenlock.jpg
+
+exec swayidle -w \
+          timeout 300 '$HOME/.config/scripts/lock.sh' \
+          before-sleep '$HOME/.config/scripts/lock.sh'
+
+#for_window [class="^.*"] inhibit_idle fullscreen
+#for_window [app_id="^.*"] inhibit_idle fullscreen
+
+
+seat seat0 xcursor_theme "Adwaita" 12
+	exec_always gsettings set org.gnome.desktop.interface cursor-theme "dist"
+
+
+
+############ APPEARANCE ############
+
+workspace_layout default
+gaps inner 4
+gaps outer 4
+smart_gaps off
+smart_borders on
+
+gaps top 3
+gaps right 0
+gaps left 0
+gaps bottom 0
+set $lol Mod4
+floating_modifier $lol
+
+font pango:JetBrainsMono 10
+
+# Толщина рамок для обычных и плавающих окон
+default_border normal 8
+default_floating_border none
+
+# Размер рамок окон
+for_window [tiling] border pixel 2
+for_window [floating] border none
+
+
+
+
+# Отключение рамки если открыто одно окно
+smart_borders on
+
+
+# ---- TITLEBAR ---
+
+font $font
+for_window [title="."] title_format "%title"
+titlebar_border_thickness 0
+title_align center
+
+default_orientation auto
+
+
+
+client.focused #7c6f64 #7c6f64 #7c6f64 #7c6f64
+client.focused_inactive	#1d2021 #1d2021 #1d2021 #1d2021
+client.unfocused #1d2021 #1d2021 #1d2021 #1d2021
+client.urgent #ebdbb2 #ebdbb2 #ebdbb2 #ebdbb2
+client.placeholder #ebdbb2 #ebdbb2 #ebdbb2 #ebdbb2
+
+# --- KEYBINDS ---
+
+bindsym --to-code 
+{
+	$mod+Return exec $term --app-id "foot-floating" 
+	$mod+t exec $term --app-id "foot-tiling"
+	$mod+d exec $menu
+	$mod+shift+b exec $browser
+	$mod+z workspace 9; exec telegram-desktop
+	# $mod+Backspace exec swaylock
+	$mod+Backspace exec '$HOME/.config/scripts/lock.sh'
+	$mod+comma exec playerctl previous
+	$mod+period exec playerctl next
+	$mod+m exec playerctl play-pause
+	$mod+r exec $term -e ranger 
+	$mod+a workspace 3
+	
+	#$mod+S+Shift exec flameshot
+	#$mod+S+Shift exec grim copy area screen
+	#$mod+S+Shift exec grim copy screen
+	#$mod+Shift+s exec grim ~/Pictures/Screenshots/screen-"$(date +%s)".png | wl-copy
+	#$mod+Shift+s exec grim -g "$(slurp)" ~/Pictures/Screenshots/screen-"$(date +%s)".png | wl-copy -t .png
+	$mod+s+Shift exec grim -g "$(slurp -d)" - | wl-copy -t image/png
+	Print exec grim -g "$(slurp -d)" - | wl-copy -t image/png
+	# Sway
+
+	$mod+Shift+c reload
+	$mod+Shift+e exec swaymsg exit
+	#$mod+Shift+e exec ~/.config/sway/scripts/powermenu
+	
+	# Volume
+
+	XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
+	XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
+	XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+	
+}
+
+# --- WINDOW MANAGMENT ---
+
+bindsym --to-code {
+	$mod+Shift+q kill
+	
+	$mod+$left focus left
+	$mod+$down focus down
+	$mod+$up focus up	
+	$mod+$right focus right
+	
+	$mod+Left focus left
+	$mod+Down focus down
+	$mod+Up focus up
+	$mod+Right focus right
+
+	$mod+Shift+$left move left
+	$mod+Shift+$down move down
+	$mod+Shift+$up move up
+	$mod+Shift+$right move right
+
+	$mod+Shift+Left move left
+	$mod+Shift+Down move down
+	$mod+Shift+Up move up
+	$mod+Shift+Right move right
+	
+	$mod+b splith
+	$mod+v splitv
+
+	$mod+Tab workspace next
+	$mod+Shift+Tab workspace prev
+
+	$mod+1 workspace $ws1
+	$mod+2 workspace $ws2
+	$mod+3 workspace $ws3
+	$mod+4 workspace $ws4
+	$mod+5 workspace $ws5
+	$mod+6 workspace $ws6
+	$mod+7 workspace $ws7
+	$mod+8 workspace $ws8
+	$mod+9 workspace $ws9
+	$mod+0 workspace $ws10
+
+	$mod+Shift+1 move container to workspace $ws1
+    $mod+Shift+2 move container to workspace $ws2
+    $mod+Shift+3 move container to workspace $ws3
+    $mod+Shift+4 move container to workspace $ws4
+    $mod+Shift+5 move container to workspace $ws5
+    $mod+Shift+6 move container to workspace $ws6
+    $mod+Shift+7 move container to workspace $ws7
+    $mod+Shift+8 move container to workspace $ws8
+    $mod+Shift+9 move container to workspace $ws9
+    $mod+Shift+0 move container to workspace $ws10
+	
+	$mod+o move scratchpad
+    $mod+p scratchpad show
+
+	$mod+Ctrl+r exec reboot
+	$mod+Ctrl+p exec poweroff
+  
+                                     
+    # $mod+s layout stacking
+    # $mod+w layout tabbed
+    # $mod+e layout toggle split
+                                     
+                                     
+    $mod+f fullscreen
+                                     
+                                     
+    $mod+Shift+space floating toggle
+                                     
+                                     
+    $mod+space focus mode_toggle
+                                     
+                                     
+    # $mod+a focus parent              
+
+
+
+	$mod+Shift+minus move scratchpad
+	$mod+minus scratchpad show
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+
+
+
+mode "resize" {
+    bindsym $left resize shrink width 10px
+    bindsym $down resize grow height 10px
+    bindsym $up resize shrink height 10px
+    bindsym $right resize grow width 10px
+
+  
+    bindsym Left resize shrink width 10px
+    bindsym Down resize grow height 10px
+    bindsym Up resize shrink height 10px
+    bindsym Right resize grow width 10px
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+set $bg wave.png
+
+bindsym $mod+r mode "resize"
+output * scale 1
+output eDP-1 {
+    scale 1
+	background ~/Pictures/wallpapers/$bg fill
+	resolution 2160x1440
+}
+
+#xwayland scale 1.7
+
+#exec pipewire
+#:include /home/medo/.config/sway/conf.d/idle.conf 
