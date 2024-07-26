@@ -138,6 +138,7 @@ exec firefox
 assign [app_id="Firefox"] workspace 1
 assign [app_id=$browser] workspace 1
 assign [class="jetbrains-idea"] workspace 3
+assign [class="jetbrains-studio"] workspace 3
 
 exec telegram-desktop
 assign [app_id="org.telegram.desktop"] workspace 9

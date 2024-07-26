@@ -123,3 +123,4 @@ source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 bindkey '^H' backward-kill-word
 export PATH="/opt/idea/bin:$PATH"
+export PATH="/home/medo/.local/bin:$PATH"
