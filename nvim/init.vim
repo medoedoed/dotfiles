@@ -11,12 +11,6 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 
-
-Plug 'prettier/vim-prettier', {
-   \ 'do': 'npm install',
-   \ 'for': ['shell', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
-
-
 call plug#end()
  
 "set backgroung=dark
