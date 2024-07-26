@@ -1,17 +1,24 @@
 call plug#begin()
-
 Plug 'ellisonleao/gruvbox.nvim'
 Plug 'sitiom/nvim-numbertoggle'
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'numToStr/Comment.nvim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'itspriddle/vim-shellcheck'
-
+Plug 'stevearc/conform.nvim'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-call plug#end()
 
+
+
+Plug 'prettier/vim-prettier', {
+   \ 'do': 'npm install',
+   \ 'for': ['shell', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
+
+
+call plug#end()
+ 
 "set backgroung=dark
 colorscheme gruvbox
 
@@ -21,8 +28,6 @@ set ts=4 sw=4
 " set smarttab
 set mouse=a
 hi Normal guibg=NONE ctermbg=NONE
-
-
 "delete word: 
 inoremap <C-BS> <C-w>
 
@@ -60,5 +65,5 @@ endif
 lua require('Comment').setup()
 lua require('colorizer').setup()
 
-
+" formatter
 
