@@ -2,7 +2,7 @@
 
 # If idle for 15s, power down the output
 swayidle -w \
-		timeout 15 'swaymsg "output * dpms off"' \
+		timeout 500 'swaymsg "output * dpms off"' \
 		resume 'swaymsg "output * dpms on"' &
 
 

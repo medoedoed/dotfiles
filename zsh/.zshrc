@@ -80,6 +80,8 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 plugins=(
 	git
 	zsh-autosuggestions
+	sudo
+	z
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -115,6 +117,9 @@ source $ZSH/oh-my-zsh.sh
 alias c="clear"
 alias nv="nvim"
 alias nf="neofetch"
+alias vpnon="sudo wg-quick up wg0-client-medo.conf" 
+alias vpnoff="sudo wg-quick down wg0-client-medo.conf" 
+
 
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
@@ -124,3 +129,4 @@ source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 bindkey '^H' backward-kill-word
 export PATH="/opt/idea/bin:$PATH"
 export PATH="/home/medo/.local/bin:$PATH"
+eval "$(zoxide init zsh)"

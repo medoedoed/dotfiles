@@ -3,7 +3,7 @@
     "position": "top",
     "margin": "0 0 0 12",
     "modules-left": ["sway/workspaces", "custom/mail", "custom/prev", "custom/toggle", "custom/next", "custom/title"],
-    "modules-center": ["clock", "custom/weather"],
+    "modules-center": ["clock"],
     "modules-right": ["sway/language", "network#vpn", "network#wifi", "network#ethernet", "pulseaudio", "custom/mem", "backlight", "battery"],
 	
     "sway/workspaces": {
@@ -14,10 +14,10 @@
 		"1": "&#xf269;",
 		"2": "&#xf120;",
 		"3": "&#xf0eb;",
-		"4": "4",
+		"4": "&#xf001;",
 		"5": "5",
 		"9": "&#xf2c6;",
-		"high-priority-named": [ "1", "2", "3", "9" ],
+		"high-priority-named": [ "1", "2", "3", "4", "9" ],
 		"urgent": "",
 		"focused": "",
 		"default": ""
