@@ -1,0 +1,190 @@
+{
+  "layer": "top",
+  "position": "top",
+  "margin": "0 8 10 20",
+  "modules-left": ["sway/workspaces", "custom/mail", "custom/prev", "custom/toggle", "custom/next", "custom/title"],
+  "modules-center": ["clock"],
+  "modules-right": ["sway/language", "network", "pulseaudio", "backlight", "battery"],
+
+  "sway/workspaces": {
+    "disable-scroll": false,
+    "all-outputs": true,
+    "format": "{icon}",
+    "format-icons": {
+      "1": "&#xf269;",
+      "2": "&#xf120;",
+      "3": "&#xf0eb;",
+      "4": "&#xf001;",
+      "5": "5",
+      "9": "&#xf2c6;",
+      "high-priority-named": [ "1", "2", "3", "4", "9" ],
+      "urgent": "",
+      "focused": "",
+      "default": ""
+    }
+  },
+
+  "custom/prev": {
+    "format": "&#xf048;",
+    "exec": "echo 'Prev'",
+    "on-click": "playerctl previous",
+    "tooltip": false
+  },
+
+  "custom/next": {
+    "format": "&#xf051;",
+    "exec": "echo 'Next'",
+    "on-click": "playerctl next",
+    "tooltip": false
+  },
+
+  "custom/toggle": {
+    "format": "{}",
+    "exec": "playerctl status | grep -q 'Playing' && echo '&#xf04c;' || echo '&#xf04b;'",
+    "on-click": "playerctl play-pause",
+    "interval": 1,
+    "tooltip": false,
+    "min-length": 3
+  },
+
+  "custom/title": {
+    "format": "{}",
+    "exec": "~/.config/scripts/scroll.sh",
+    "max-length": 26
+  },
+
+  "sway/language": {
+    "format": " [{}]",
+    "min-length": 9,
+    "tooltip": false
+  },
+
+  "network": {
+    "format-wifi": "{icon}[{signalStrength}%]",
+    "format-disconnected": " ⚠ ",
+    "format-icons": [
+      "󰤯 ",
+      "󰤟 ",
+      "󰤢 ",
+      "󰤥 ",
+      "󰤨 "
+    ],
+    "tooltip-format-disconnected": "Disconnected",
+    "tooltip-format-wifi": "{icon} \n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
+    "format-ethernet": "{ifname}",
+    "tooltip-format-ethernet": "󰀂  {ifname}\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
+    "nospacing": 1,
+    "interval": 5
+  },
+
+  "clock": {
+    "interval": 1,
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    "format": "[{:%a, %d %b, %H:%M:%S}]",
+    "min-length": 5,
+    "click-action": "waybar-cal",
+    "calendar": {
+      "mode": "year",
+      "mode-mon-col": 3,
+      "weeks-pos": "right",
+      "on-scroll": 1,
+      "on-click-right": "mode",
+      "format": {
+        "months": "<span color='#fbf1c1'><b>{}</b></span>",
+        "days": "<span color='#fbf1c1'><b>{}</b></span>",
+        "weeks": "<span color='#fbf1c1'><b>W{}</b></span>",
+        "weekdays": "<span color='#fbf1c1'><b>{}</b></span>",
+        "today": "<span color='#fbf1c1'><b><u>{}</u></b></span>"
+      },
+      "on-click-right": "mode",
+      "on-click": "cal"
+    }
+  },
+
+  "custom/weather": {
+    "format": "[{}]",
+    "interval": 1,
+    "exec": "~/.config/scripts/weather.sh",
+    "tooltip": true
+  },
+
+  "pulseaudio": {
+    "format": "{icon}[{volume}%]",
+    "format-bluetooth": "󰂰 [{volume}%]",
+    "nospacing": 1,
+    "format-muted": "󰝟 [0%]",
+    "format-icons": {
+      "headphone": " ",
+      "default": [
+       /* " ",
+       " ",*/
+        "  "
+      ]
+
+    },
+    "on-click": "pavucontrol",
+    "scroll-step": 5
+  },
+
+  "custom/mem": {
+    "format": "[{}]",
+    "interval": 3,
+    "exec": "free -h | awk '/Mem:/{printf $3}'",
+    "tooltip": false
+  },
+
+  "backlight": {
+    "format": "{icon} [{percent}%]",
+    "format-icons": ["", "", "", "", "", "", "", "", ""]
+  },
+
+  "battery": {
+    "format": "{icon}[{capacity}%]",
+    "format-icons": {
+      "charging": [
+        "󰢜 ",
+        "󰂆 ",
+        "󰂇 ",
+        "󰂈 ",
+        "󰢝 ",
+        "󰂉 ",
+        "󰢞 ",
+        "󰂊 ",
+        "󰂋 ",
+        "󰂅 "
+      ],
+      "default": [
+        "󰁺 ",
+        "󰁻 ",
+        "󰁼 ",
+        "󰁽 ",
+        "󰁾 ",
+        "󰁿 ",
+        "󰂀 ",
+        "󰂁 ",
+        "󰂂 ",
+        "󰁹 "
+      ]
+    },
+    "interval": 5,
+    "states": {
+      "warning": 25,
+      "critical": 10
+    },
+    "tooltip": false,
+  },
+
+  "tray": {
+    "icon-size": 16,
+    "spacing": 0
+  },
+
+  "custom/playerctl-controls": {
+    "format": "Prev {} Next",
+    "return-type": "json",
+    "exec": "echo '{}'",
+    "exec-if": "command -v playerctl",
+    "on-click": "bash -c 'if [[ {0} == \"Next\" ]]; then playerctl next; elif [[ {0} == \"Prev\" ]]; then playerctl previous; fi'"
+  }
+}
+

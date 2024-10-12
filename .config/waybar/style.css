@@ -1,0 +1,214 @@
+/* General Styles */
+* {
+  font-size: 21px;
+  border-radius: 4px;
+  padding: 0;
+  margin: 0;
+}
+
+/* Waybar Styles */
+window#waybar {
+  font-family: JetBrainsMono, monospace;
+  background-color: transparent;
+  border-bottom: 0;
+  color: #ebdbb2;
+  transition: background-color 0.5s;
+}
+
+window#waybar.hidden {
+  opacity: 0.2;
+}
+
+window#waybar.empty #window {
+  background-color: transparent;
+}
+
+/* Module Margin Styles */
+.modules-right,
+.modules-center,
+.modules-left {
+  margin: 12px 12px 5px 0;
+}
+
+/* Custom Modules Styles */
+#custom-weather,
+#pulseaudio,
+#custom-mem,
+#network,
+#custom-prev,
+#custom-title,
+#custom-next,
+#custom-toggle,
+#tray {
+  padding: 0 10px;
+  margin: 0 2px;
+  background-color: #282828;
+  color: #ebdbb2;
+}
+
+#battery {
+  padding: 2px 20px;
+  margin: 0 2px 0 0;
+  background-color: #282828;
+  color: #ebdbb2;
+}
+
+#language {
+  padding: 0 10px;
+  margin: 0 2px;
+  background-color: #282828;
+  color: #ebdbb2;
+}
+
+#custom-prev {
+  margin: 0 2px 0 160px;
+}
+
+#custom-title {
+  margin: 0 2px 0 20px;
+}
+
+/* Network Module Styles */
+#network {
+  padding: 0 12px;
+  margin: 0 1px 0 0;
+  background-color: #282828;
+  color: #ebdbb2;
+}
+
+/* Button Styles */
+button {
+  border: none;
+}
+
+button:hover {
+  background: inherit;
+  box-shadow: inset 0 -3px #ebdbb2;
+}
+
+/* Workspaces Styles */
+#workspaces {
+  background-color: #282828;
+}
+
+#workspaces button {
+  padding: 5px 10px;
+  background-color: transparent;
+  color: #ebdbb2;
+  border-radius: 0;
+  font-weight: bold;
+}
+
+#workspaces button:first-child {
+  border-radius: 2px 0 0 2px;
+}
+
+#workspaces button:last-child {
+  border-radius: 0 2px 2px 0;
+}
+
+#workspaces button:hover {
+  color: #fabd2f;
+}
+
+#workspaces button.focused {
+  box-shadow: inset 0 -3px #665c54;
+}
+
+#workspaces button.urgent {
+  background-color: #fb4934;
+}
+
+/* Miscellaneous Module Styles */
+#idle_inhibitor,
+#cava,
+#scratchpad,
+#mode,
+#window,
+#clock,
+#backlight,
+#wireplumber,
+#mpris,
+#weather,
+#load {
+  padding: 0 10px;
+  background-color: #282828;
+  margin: 0 2px;
+  color: #ebdbb2;
+}
+
+#mode {
+  background-color: #689d6a;
+  color: #282828;
+}
+
+/* Specific Module Padding Adjustments */
+#cava {
+  padding: 0 5px;
+}
+
+/* Battery Charging and Critical Styles */
+#battery.charging,
+#battery.plugged {
+  background-color: #98971a;
+  color: #282828;
+}
+
+@keyframes blink {
+  to {
+    background-color: #282828;
+    color: #ebdbb2;
+  }
+}
+
+#battery.critical:not(.charging) {
+  background-color: #fb4934;
+  color: #ebdbb2;
+  animation: blink 0.5s steps(12) infinite alternate;
+}
+
+/* Focused Label Styles */
+label:focus {
+  background-color: #000000;
+}
+
+/* Wireplumber Muted Style */
+#wireplumber.muted {
+  background-color: #458588;
+}
+
+/* Tray Icon Effects */
+#tray > .passive {
+  -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+  -gtk-icon-effect: highlight;
+}
+
+/* MPRIS and Weather Playing Styles */
+#mpris.playing,
+#weather {
+  background-color: #d79921;
+  color: #282828;
+}
+
+/* Tray Menu Font */
+#tray menu {
+  font-family: sans-serif;
+}
+
+/* Scratchpad Empty Style */
+#scratchpad.empty {
+  background: transparent;
+}
+
+/* Workspace Margin Adjustments */
+.modules-left > widget:first-child > #workspaces {
+  margin-left: 0;
+}
+
+.modules-right > widget:last-child > #workspaces {
+  margin-right: 0;
+}
+
