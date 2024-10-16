@@ -31,7 +31,7 @@ set {
 
 set {
   $term kitty
-    $browser firefox
+    $browser firefox-wayland
     $menu wofi --show drun
 }
 
@@ -42,26 +42,26 @@ set $font "Fira Mono Regular 30"
 # --- GUI ---
 
 #--- ЭТО РАБОТАЕТ ТОЛЬКО В SWAYFX -----------------------------------------------------
-corner_radius 5
+corner_radius 0
 smart_corner_radius enable
 
 # Блюр
-blur enable
-blur_xray off
-blur_passes 5
-blur_radius 5
-
-# ТЕНИ
-shadows on
-shadows_on_csd on
-shadow_blur_radius 15
-shadow_color #7c6f64
-
-# Затемнение неактивных окон
-default_dim_inactive 0.05
-dim_inactive_colors.unfocused #000000FF
-dim_inactive_colors.urgent #900000FF
-
+# blur enable
+# blur_xray off
+# blur_passes 5
+# blur_radius 5
+#
+# # ТЕНИ
+# shadows on
+# shadows_on_csd on
+# shadow_blur_radius 15
+# shadow_color #7c6f64
+#
+# # Затемнение неактивных окон
+# default_dim_inactive 0.05
+# dim_inactive_colors.unfocused #000000FF
+# dim_inactive_colors.urgent #900000FF
+#
 
 
 # --- WS NAMES ---
@@ -121,10 +121,11 @@ input "type:touchpad" {
 exec_always autotiling 
 exec --no-startup-id xset b off
 exec dbus-daemon --session --address=unix:path=$XDG_RUNTIME_DIR/bus
-exec NetworkManager
-exec firefox
+exec $browser
+exec vpn restart
 
-assign [app_id=$browser] workspace 1
+
+assign [app_id="org.mozilla.firefox"] workspace 1
 assign [class="jetbrains-idea"] workspace 3
 assign [class="jetbrains-goland"] workspace 3
 assign [class="jetbrains-pycharm"] workspace 3
@@ -178,7 +179,7 @@ bar {
 
 
 seat seat0 xcursor_theme "Adwaita" 12
-exec_always gsettings set org.gnome.desktop.interface cursor-theme "dist"
+exec_always gsettings set org.gnomeesktop.interface cursor-theme "dist"
 exec_always gsettings set org.gnome.desktop.interface gtk-enable-primary-paste false
 exec_always gsettings set org.gnome.desktop.interface text-scaling-factor 1.5
 exec_always gsettings set org.gnome.desktop.interface gtk-theme "Gruvbox-Dark-hdpi"
@@ -187,27 +188,27 @@ exec_always gsettings set org.gnome.desktop.interface gtk-theme "Gruvbox-Dark-hd
 ############ APPEARANCE ############
 
 workspace_layout default
-gaps inner 12
-gaps outer 6
+gaps inner 0
+gaps outer 0
 smart_gaps on
 smart_borders on
 
 gaps top 0
-gaps right 5
-gaps left 5
-gaps bottom 5
+gaps right 0
+gaps left 0
+gaps bottom 0
 set $lol Mod4
 floating_modifier $lol
 
 font pango:JetBrainsMono 20
 
 # Толщина рамок для обычных и плавающих окон
-default_border pixel 24
-default_floating_border pixel 36
+default_border pixel 0
+default_floating_border pixel 0
 
 # Размер рамок окон
-for_window [tiling] border pixel 1
-for_window [floating] border pixel 0.2
+for_window [tiling] border pixel 4
+for_window [floating] border pixel 2
 
 # Отключение рамки если открыто одно окно
 smart_borders on
@@ -224,17 +225,16 @@ default_orientation auto
 
 for_window [class=".*"] opacity 1
 
-
-client.focused #ebdbb2 #ebdbb2 #ebdbb2 #ebdbb2
-client.focused_inactive	#1d2021 #1d2021 #1d2021 #1d2021
+client.focused #504945 #504945 #504945 #504945
+client.focused_inactive #1d2021 #1d2021 #1d2021 #1d2021
 client.unfocused #1d2021 #1d2021 #1d2021 #1d2021
-client.urgent #ebdbb2 #ebdbb2 #ebdbb2 #ebdbb2
-client.placeholder #ebdbb2 #ebdbb2 #ebdbb2 #ebdbb2
+client.urgent #d5c4a1 #d5c4a1 #d5c4a1 #d5c4a1
+client.placeholder #d5c4a1 #d5c4a1 #d5c4a1 #d5c4a1
 
 # --- KEYBINDS ---
 
 bindsym --to-code {
-  $mod+Return exec $term --app-id "$term-floating" 
+    $mod+Return exec $term --app-id "$term-floating" 
     $mod+t exec $term --app-id "$term-tiling"
     $mod+d exec $menu
     $mod+shift+b exec $browser

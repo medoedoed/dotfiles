@@ -1,11 +1,41 @@
 {
   "layer": "top",
   "position": "top",
-  "margin": "0 8 10 20",
-  "modules-left": ["sway/workspaces", "custom/mail", "custom/prev", "custom/toggle", "custom/next", "custom/title"],
-  "modules-center": ["clock"],
-  "modules-right": ["sway/language", "network", "pulseaudio", "backlight", "battery"],
+  "margin": "0 0 0 0",
+  "modules-left": [
+    "sway/workspaces"
+    //"sway/window",
+  ],
+  /*
+  "modules-center": [ 
+  "custom/prev",
+  "custom/toggle", 
+  "custom/next", 
+  "custom/title"
+  ],
+  */
+  "modules-right": [
+    "sway/language", 
+    "network", 
+    "pulseaudio", 
+    "backlight",
+    "battery", 
+    "clock",
+  ],
 
+
+  "sway/window": {
+    "format": "{title}",
+    "max-length": 100,
+    "all-outputs" : true,
+    "offscreen-css" : true,
+    "rotate": 0,
+    "offscreen-css-text": false,
+    "rewrite": {
+       "(.*) — Mozilla Firefox": "$1",
+    }
+}
+  ,
   "sway/workspaces": {
     "disable-scroll": false,
     "all-outputs": true,
@@ -14,19 +44,24 @@
       "1": "&#xf269;",
       "2": "&#xf120;",
       "3": "&#xf0eb;",
-      "4": "&#xf001;",
-      "5": "5",
       "9": "&#xf2c6;",
-      "high-priority-named": [ "1", "2", "3", "4", "9" ],
+      "high-priority-named": [ "1", "2", "3","9" ],
       "urgent": "",
       "focused": "",
       "default": ""
-    }
+    },
+    "persistent-workspaces": {
+      "1": [],
+      "2": [],
+      "3": [],
+      "9": [],
+    } 
   },
+
 
   "custom/prev": {
     "format": "&#xf048;",
-    "exec": "echo 'Prev'",
+    "exec": "echo 'Pe'",
     "on-click": "playerctl previous",
     "tooltip": false
   },
@@ -54,14 +89,13 @@
   },
 
   "sway/language": {
-    "format": " [{}]",
-    "min-length": 9,
-    "tooltip": false
+    "format": "{}  ",
+    "tooltip": false,
+    "on-click": "swaymsg input type:keyboard xkb_switch_layout next"
   },
-
   "network": {
-    "format-wifi": "{icon}[{signalStrength}%]",
-    "format-disconnected": " ⚠ ",
+    "format": "{ifname}",
+    "format-wifi": "{signalStrength}% {icon}",
     "format-icons": [
       "󰤯 ",
       "󰤟 ",
@@ -69,18 +103,19 @@
       "󰤥 ",
       "󰤨 "
     ],
+    "format-ethernet": "{ipaddr}/{cidr} 󰈀",
+    "format-disconnected": "󱛅", //An empty format will hide the module.
+    "tooltip-format": "{ifname} via {gwaddr} 󰛳 ",
+    "tooltip-format-wifi": "{essid} ({signalStrength}%)  ",
+    "tooltip-format-ethernet": "{ifname}  ",
     "tooltip-format-disconnected": "Disconnected",
-    "tooltip-format-wifi": "{icon} \n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
-    "format-ethernet": "{ifname}",
-    "tooltip-format-ethernet": "󰀂  {ifname}\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
-    "nospacing": 1,
-    "interval": 5
+    "max-length": 30
   },
 
   "clock": {
     "interval": 1,
     "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-    "format": "[{:%a, %d %b, %H:%M:%S}]",
+    "format": "{:%H:%M}",
     "min-length": 5,
     "click-action": "waybar-cal",
     "calendar": {
@@ -109,21 +144,20 @@
   },
 
   "pulseaudio": {
-    "format": "{icon}[{volume}%]",
-    "format-bluetooth": "󰂰 [{volume}%]",
-    "nospacing": 1,
-    "format-muted": "󰝟 [0%]",
+    "format": "{volume}% {icon}",
+    "format-bluetooth": "{volume}% {icon}",
+    "format-bluetooth-muted": "{icon} 󰝟",
+    "format-muted": "{volume}% 󰝟",
     "format-icons": {
       "headphone": " ",
-      "default": [
-       /* " ",
-       " ",*/
-        "  "
-      ]
-
+      "hands-free": "󱠰 ",
+      "headset": "󰋎 ",
+      "phone": " ",
+      "portable": " ",
+      "car": " ",
+      "default": ["", " ", " "]
     },
-    "on-click": "pavucontrol",
-    "scroll-step": 5
+    "on-click": "pavucontrol"
   },
 
   "custom/mem": {
@@ -134,44 +168,46 @@
   },
 
   "backlight": {
-    "format": "{icon} [{percent}%]",
-    "format-icons": ["", "", "", "", "", "", "", "", ""]
+    "format": "{percent}% {icon}",
+    "format-icons": ["", "", "", "", "", "", "", "", ""],
+    "on-scroll-up": "light -A 4",
+    "on-scroll-down": "light -U 4",
   },
 
   "battery": {
-    "format": "{icon}[{capacity}%]",
+    "format": "{capacity}% {icon}",
     "format-icons": {
       "charging": [
-        "󰢜 ",
-        "󰂆 ",
-        "󰂇 ",
-        "󰂈 ",
-        "󰢝 ",
-        "󰂉 ",
-        "󰢞 ",
-        "󰂊 ",
-        "󰂋 ",
-        "󰂅 "
+        "󰢜",
+        "󰂆",
+        "󰂇",
+        "󰂈",
+        "󰢝",
+        "󰂉",
+        "󰢞",
+        "󰂊",
+        "󰂋",
+        "󰂅"
       ],
       "default": [
-        "󰁺 ",
-        "󰁻 ",
-        "󰁼 ",
-        "󰁽 ",
-        "󰁾 ",
-        "󰁿 ",
-        "󰂀 ",
-        "󰂁 ",
-        "󰂂 ",
-        "󰁹 "
+        "󰁺",
+        "󰁻",
+        "󰁼",
+        "󰁽",
+        "󰁾",
+        "󰁿",
+        "󰂀",
+        "󰂁",
+        "󰂂",
+        "󰁹"
       ]
     },
-    "interval": 5,
+    "interval": 1,
     "states": {
       "warning": 25,
       "critical": 10
     },
-    "tooltip": false,
+    "tooltip": true,
   },
 
   "tray": {

@@ -123,7 +123,7 @@ alias dc="docker-compose"
 alias gc="git commit -am"
 alias sudo="sudo -E"
 alias la="eza -a -x --icons --git --group-directories-first --no-user --tree --level=1"
-
+alias bctl="bluetoothctl"
 alias ls="eza --icons=always --no-time --no-user --no-permissions"
 
 alias tree="eza --tree --icons=always"
@@ -137,6 +137,8 @@ export QT_AUTO_SCREEN_SCALE_FACTOR=1.9
 export QT_SCALE_FACTOR=1.9
 export ELM_SCALE=1.9
 export GTK_THEME="Gruvbox-Dark-hdpi"
+export MOZ_ENABLE_WAYLAND=1
+export XDG_CURRENT_DESKTOP="sway"
 
 
 
