@@ -1,0 +1,40 @@
+{
+  "inbounds": [
+    {
+      "domain_strategy": "",
+      "listen": "127.0.0.1",
+      "listen_port": 1080,
+      "sniff": true,
+      "sniff_override_destination": false,
+      "tag": "mixed-in",
+      "type": "mixed",
+        "set_system_proxy": true
+    }
+  ],
+  "outbounds": [
+    {
+      "tag": "vless-out",
+      "type": "vless",
+      "server": "46.246.96.28",
+      "server_port": 27388,
+      "uuid": "1e445e5c-4e6d-4c94-a146-16c32b817276",
+      "flow": "xtls-rprx-vision",
+      "network": "tcp",
+      "tag": "proxy",
+      "tls": {
+        "enabled": true,
+        "reality": {
+          "enabled": true,
+          "public_key": "u1PoJLwJZ9lWYJQaoClg2DnBrR04r2J3xut-h2sxNl0",
+          "short_id": "f0"
+        },
+        "server_name": "dl.google.com",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      }
+    }
+  ]
+}
+
