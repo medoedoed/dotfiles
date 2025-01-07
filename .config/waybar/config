@@ -41,10 +41,10 @@
     "all-outputs": true,
     "format": "{icon}",
     "format-icons": {
-      "1": "&#xf269;",
-      "2": "&#xf120;",
+      "1": " ",
+      "2": "",
       "3": "&#xf0eb;",
-      "9": "&#xf2c6;",
+      "9": "&#xf2c6; ",
       "high-priority-named": [ "1", "2", "3","9" ],
       "urgent": "",
       "focused": "",
@@ -146,8 +146,8 @@
   "pulseaudio": {
     "format": "{volume}% {icon}",
     "format-bluetooth": "{volume}% {icon}",
-    "format-bluetooth-muted": "{icon} 󰝟",
-    "format-muted": "{volume}% 󰝟",
+    "format-bluetooth-muted": "{icon} ",
+    "format-muted": "{volume}% ",
     "format-icons": {
       "headphone": " ",
       "hands-free": "󱠰 ",
@@ -155,9 +155,15 @@
       "phone": " ",
       "portable": " ",
       "car": " ",
-      "default": ["", " ", " "]
+      "default": [
+       // "",
+       // " ",
+        " "]
     },
-    "on-click": "pavucontrol"
+    "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +5%",
+    "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -5%",
+    "on-click": "pavucontrol",
+    "on-click-right": "pactl set-sink-mute @DEFAULT_SINK@ toggle"
   },
 
   "custom/mem": {
@@ -170,8 +176,8 @@
   "backlight": {
     "format": "{percent}% {icon}",
     "format-icons": ["", "", "", "", "", "", "", "", ""],
-    "on-scroll-up": "light -A 4",
-    "on-scroll-down": "light -U 4",
+    "on-scroll-up": "light -A 5",
+    "on-scroll-down": "light -U 5",
   },
 
   "battery": {

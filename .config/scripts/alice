@@ -1,0 +1,20 @@
+#!/bin/bash
+
+MAC="B8:87:6E:6E:CD:2D"
+
+if ! bluetoothctl info $MAC | grep -q "Connected: yes"; then
+  bluetoothctl scan on &>/dev/null &
+  SCAN_PID=$!
+  sleep 1
+
+  bluetoothctl disconnect $MAC &>/dev/null
+  bluetoothctl connect $MAC &>/dev/null
+  bluetoothctl trust $MAC &>/dev/null
+  bluetoothctl pair $MAC &>/dev/null
+
+  bluetoothctl scan off &>/dev/null
+  wait $SCAN_PID
+fi
+
+dev=$(pactl list sinks short | awk '{print $2 }' | grep B8_87_6E)
+pactl set-default-sink $dev &>/dev/null

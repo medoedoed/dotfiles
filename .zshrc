@@ -114,14 +114,17 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+#
 alias c="clear"
 alias nv="nvim"
 alias nf="neofetch"
 alias nano="nvim"
 alias vbm="vboxmanage"
 alias dc="docker-compose"
+alias dps="docker ps --format \"{{.ID}} - {{.Names}}\""
 alias gc="git commit -am"
 alias sudo="sudo -E"
+alias sudoi="sudo"
 alias la="eza -a -x --icons --git --group-directories-first --no-user --tree --level=1"
 alias bctl="bluetoothctl"
 alias ls="eza --icons=always --no-time --no-user --no-permissions"
@@ -133,21 +136,22 @@ alias tree="eza --tree --icons=always"
 
 
 
-export QT_AUTO_SCREEN_SCALE_FACTOR=1.9
-export QT_SCALE_FACTOR=1.9
-export ELM_SCALE=1.9
+export QT_AUTO_SCREEN_SCALE_FACTOR=1.6
+export QT_SCALE_FACTOR=1.6
+export QT_SCALE=1.6
+export ELM_SCALE=1.6
 export GTK_THEME="Gruvbox-Dark-hdpi"
 export MOZ_ENABLE_WAYLAND=1
 export XDG_CURRENT_DESKTOP="sway"
-
+export AWT_TOOLKIT=MToolkit
 
 
 bindkey '^H' backward-kill-word
 export PATH="/opt/idea/bin:$PATH"
 export PATH="/home/medo/.local/bin:$PATH"
 eval "$(zoxide init zsh)"
+
 source ~/powerlevel10k/powerlevel10k.zsh-theme
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 ___MY_VMOPTIONS_SHELL_FILE="${HOME}/.jetbrains.vmoptions.sh"; if [ -f "${___MY_VMOPTIONS_SHELL_FILE}" ]; then . "${___MY_VMOPTIONS_SHELL_FILE}"; fi
